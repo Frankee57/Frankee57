@@ -1,0 +1,26 @@
+.MyProfile{
+    width: 100%;
+}
+.MyProfile img{
+    width: 100%;
+}
+
+.user-Data{
+    padding: 5px;
+
+}
+
+.user-Data .item{
+    display: flex;
+}
+
+.user-Data .item .attribute{
+    font-size: 15px;
+    color: black;
+    font-weight: 900;
+}
+.user-Data .item .value{
+    font-size: 15px;
+    margin-left: 20px;
+}
+

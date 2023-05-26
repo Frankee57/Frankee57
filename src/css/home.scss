@@ -1,0 +1,114 @@
+.flexBox{
+    display: flex;
+    overflow-y: scroll;
+    justify-items: center;
+}
+
+
+.image{
+    width: 260px;
+    height: 160px;
+  }
+
+ 
+
+  .serviceName{
+    font-size: 20px;
+    font-weight: 900;
+margin-top: 0px;
+text-align: justify;
+padding: 6px;
+  }
+  .vide{
+    height: 5px;
+  }
+
+  .followers {
+    text-align: justify;
+    padding: 6px;
+    font-size: 15px;
+
+    span{
+        text-align: center;
+        
+    }
+  }
+
+  .block{
+  }
+
+
+  .boutons{
+    margin-top: 20px;
+    text-transform: lowercase;
+    text-transform: n;
+
+    Button{
+    }
+  }
+
+
+  .menu-button{
+    padding: 20px;
+
+  }
+
+  .menu-button .menu-btn{
+    margin-top: 13px;
+    float: left;
+    color: rgb(2, 2, 48);
+    margin-left: -20px;
+   }
+   .menu-button .menu-btn  .tiret{
+    height: 4px;
+    width: 25px;
+    margin-top: 3px;
+    background-color: #fff;
+   }
+
+   .bouton{
+    padding: 5px;
+    font-weight: 900;
+    width: 48%;
+    margin-left: 2px;
+    font-size: 16px;
+    border: 1px solid rgb(2, 2, 48);
+    cursor: pointer;
+    border-radius: 40px;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    -ms-border-radius: 40px;
+    -o-border-radius: 40px;
+}
+
+.bouton:hover{
+    padding: 9px;
+    font-weight: 900;
+    width: 48%;
+    margin-left: 2px;
+    font-size: 16px;
+    color: white;
+    box-shadow: 20px 20px 10px rgb(77, 76, 76);
+    background-color: rgb(2, 2, 48);
+    border: 1px solid rgb(2, 2, 48);
+    border-radius: 40px;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    -ms-border-radius: 40px;
+    -o-border-radius: 40px;
+}
+
+.botn{
+   padding: 5px;
+    font-weight: 900;
+    width: 48%;
+    margin-left: 2px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    border-radius: 40px;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    -ms-border-radius: 40px;
+    -o-border-radius: 40px;
+}

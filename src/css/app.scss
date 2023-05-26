@@ -1,0 +1,257 @@
+/* iOS Cordova Tweak */
+.device-cordova.device-ios {
+  height: 100vh;
+}
+
+/* Custom color theme properties */
+:root {
+  --f7-theme-color: rgb(2, 2, 48);
+  --f7-theme-color-rgb: 56, 128, 255;
+  --f7-theme-color-shade: rgb(2, 2, 48);
+  --f7-theme-color-tint: rgb(2, 2, 48);
+
+ 
+}
+
+/* Your app custom styles here */
+.panel-header-image{
+  width: 50%;
+}
+.panel-header{
+  justify-content: center;
+  justify-items: center;
+  padding: 20px;
+background-color: rgb(2, 2, 48);
+color: white;
+  img{
+    width: 100%;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+}
+
+.name{
+  font-weight: bold;
+  font-size: 20px;
+}
+.round{
+  text-transform: lowercase ;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+/* Chat container */
+.chat-container {
+  width: 400px;
+  height: 500px;
+  margin: 50px auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Chat header */
+.chat-header {
+  background-color: #075e54;
+  color: #fff;
+  padding: 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.chat-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: normal;
+}
+
+/* Chat messages */
+.chat-messages {
+  height: 350px;
+  padding: 10px;
+  overflow-y: scroll;
+}
+
+/* Chat message */
+.message {
+  display: inline-block;
+  max-width: 80%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 14px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.message.received {
+  background-color: #f0f0f0;
+}
+
+.message.sent {
+  background-color: #dcf8c6;
+  float: right;
+}
+
+.message p {
+  margin: 0;
+}
+
+/* Chat input */
+.chat-input {
+  padding: 10px;
+  border-top: 1px solid #ccc;
+}
+
+.chat-input input {
+  width: 80%;
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.chat-input button {
+  width: 18%;
+  padding: 8px;
+  margin-left: 2%;
+  border-radius: 5px;
+  border: none;
+  background-color: #075e54;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.chat-input button:hover {
+  background-color: #128c7e;
+}
+
+
+.attributes{
+  width: 49%;
+}
+.attri{
+  font-weight: 900;
+  margin-top: 8px;
+}
+
+.values{
+  width: 49%;
+}
+
+.contenu {
+  display: flex;
+  flex-direction: row;
+  padding: 2px;
+}
+
+
+
+.profile-image-container {
+  width: 88px; /* La largeur souhaitée du conteneur de l'image */
+  height: 88px; /* La hauteur souhaitée du conteneur de l'image */
+  border-radius: 50%; /* La forme arrondie */
+  overflow: hidden; /* Cache tout ce qui dépasse du conteneur */
+}
+
+.profile-image {
+  width: 100%; /* Prend toute la largeur du conteneur */
+  height: 100%; /* Prend toute la hauteur du conteneur */
+  background-size: cover; /* Redimensionne l'image pour qu'elle couvre tout le conteneur */
+}
+
+
+
+
+
+.horizontal-list {
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+}
+
+.horizontal-card {
+  margin-right: 16px;
+  scroll-snap-align: center;
+}
+
+.card-header-image {
+  width: 40%;
+  object-fit: cover;
+  height: 95%;
+  border-radius:50% ;
+  -webkit-border-radius:50% ;
+  -moz-border-radius:50% ;
+  -ms-border-radius:50% ;
+  -o-border-radius:50% ;
+}
+
+.card-header {
+  padding: 0;
+  margin-bottom: 0;
+  justify-content: center;
+  justify-items: center;
+}
+
+.card-content-inner {
+  padding: 16px;
+}
+
+.card-footer {
+  text-align: center;
+  padding: 16px;
+}
+.task{
+  box-shadow: 10px 12px 16px 15px rgb(200, 199, 199);
+}
+.btn{
+
+
+text-transform: lowercase;
+}
+
+
+.detail-btn{
+  font-weight: bold;
+  color: rgb(2, 2, 48);
+}
+
+
+.loader{
+  justify-content: center;
+  justify-items: center;
+}
+
+
+.myBton{
+  text-transform: lowercase;
+  margin-left: 12px;
+}
+
+
+
+.star-btn{
+  font-size: 30px;
+}
+
+.my-icon{
+  font-size: 30px
+}

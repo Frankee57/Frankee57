@@ -1,0 +1,43 @@
+{
+  "cwd": "C:\\Users\\ADMIN\\Desktop\\darsaf\\oxygene",
+  "type": [
+    "web",
+    "pwa",
+    "cordova",
+    "capacitor"
+  ],
+  "name": "oxygene",
+  "pkg": "io.framework7.myapp",
+  "framework": "react",
+  "template": "tabs",
+  "cssPreProcessor": "scss",
+  "bundler": "vite",
+  "cordova": {
+    "folder": "cordova",
+    "platforms": [
+      "ios",
+      "android",
+      "electron",
+      "osx"
+    ],
+    "plugins": [
+      "cordova-plugin-statusbar",
+      "cordova-plugin-keyboard",
+      "cordova-plugin-splashscreen"
+    ]
+  },
+  "capacitor": {
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "theming": {
+    "customColor": true,
+    "color": "#3880ff",
+    "darkTheme": false,
+    "iconFonts": true,
+    "fillBars": false
+  },
+  "customBuild": false
+}
