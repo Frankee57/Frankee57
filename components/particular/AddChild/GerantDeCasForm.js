@@ -8,7 +8,7 @@ import * as ImagePicker from 'expo-image-picker';
 import {colors} from '../../../assets/styles/colors'
 
 const Form = () => {
-  const { globalState, setGlobalState } = useContext(MyContext);
+  // const { globalState, setGlobalState } = useContext(MyContext);
   const [nom, setNom] = useState('');
   const [sexe, setSexe] = useState('');
   const [numeroCNI, setNumeroCNI] = useState('');
@@ -68,7 +68,7 @@ const Form = () => {
 };
 
 const GerantDeCasForm = () => {
-  const { globalState, setGlobalState } = useContext(MyContext);
+  // const { globalState, setGlobalState } = useContext(MyContext);
 
   return <Form />;
 };

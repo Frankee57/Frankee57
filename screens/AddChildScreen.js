@@ -7,14 +7,16 @@ import ChoixPreferenceForm from '../components/particular/AddChild/ChoixPreferen
 import IteConfig from '../components/particular/AddChild/IteConfig'
 import GerantDeCasForm from '../components/particular/AddChild/GerantDeCasForm'
 import MyContext from '../contextes/appContext'
+import Navbar from '../components/Navbar';
 
 
 const components = [<ChildForm />, <IteConfig />, <GerantDeCasForm />, < ChoixPreferenceForm />];
-const EnfantForm = () => {
-  const {globalState , setGlobalState}= useContext(MyContext)
+const EnfantForm = (props) => {
+  // const {globalState , setGlobalState}= useContext(MyContext)
  
   return (
     <View style={styles.container}>
+      <Navbar title={'Enrgistrer un enfant'} navigation = {props.navigation}  />
         <MySlide content={<ChildForm />} />
     </View>
   );

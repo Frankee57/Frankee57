@@ -1,11 +1,17 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { TextInput, Button, Title } from 'react-native-paper';
-import MyContext from '../../../contextes/appContext';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+
 import {colors} from '../../../assets/styles/colors'
 
 const Form = () => {
+  const child = useSelector(state => state.myChild.childs)
+  const newChild = child[child.length - 1]
+  // newChild.email = 'test'
+  const [saveChild, setSaveChild] = useState(newChild)
+  console.log(saveChild);
   const navigation = useNavigation();
 
   const [ramassage, setRamassage] = useState('');

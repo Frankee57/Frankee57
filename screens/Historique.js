@@ -28,7 +28,7 @@ export const items = [
 
 
 const HistoMenu = () => {
-  const {globalState, setGlobalState} = useContext(MyContext)
+  // const {globalState, setGlobalState} = useContext(MyContext)
   const navigation = useNavigation()
   const navigate = (item)=>{
   

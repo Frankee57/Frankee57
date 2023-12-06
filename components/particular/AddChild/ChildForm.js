@@ -1,15 +1,18 @@
-import  React, { useState  ,  useContext} from 'react';
-import { View, StyleSheet , Text  } from 'react-native';
-import { TextInput, Button  } from 'react-native-paper';
-import {colors} from '../../../assets/styles/colors'
+import React, { useState, useContext } from 'react';
+import { View, StyleSheet, Text, ScrollView } from 'react-native';
+import { TextInput, Button } from 'react-native-paper';
+import { colors } from '../../../assets/styles/colors'
 import MyContext from '../../../contextes/appContext'
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import { Picker } from '@react-native-picker/picker'; // Importez le composant Picker de cette manière
+import { useDispatch } from 'react-redux';
 
 import IteConfig from './IteConfig'
+import { setInitialScreen, setSidbard } from '../../../redurcer/sideBarsSlice';
+import { addChild } from '../../../redurcer/childSlice';
 const schools = [
-    { label: "Quelle est l'école de l'enfant", value: '' },
+  { label: "Quelle est l'école de l'enfant", value: '' },
 
   { label: 'École Publique de Bastos', value: 'Ecole Publique de Bastos' },
   { label: 'Collège Bilingue de Biyem-Assi', value: 'Collège Bilingue de Biyem-Assi' },
@@ -20,100 +23,116 @@ const ChildForm = () => {
   const [school, setSchool] = useState('');
 
   const navigation = useNavigation()
-    const {globalState , setGlobalState}= useContext(MyContext)
+  // const { globalState, setGlobalState } = useContext(MyContext)
+  const dispatch = useDispatch()
 
-  const [fullName, setFullName] = React.useState('');
-  const [level, setLevel] = React.useState('');
-  const [dateOfBirth, setDateOfBirth] = React.useState('');
-  const [residence, setResidence] = React.useState('');
-  const [pickupReference, setPickupReference] = React.useState('');
-  const [profilePhoto, setProfilePhoto] = React.useState('');
- const handleChoosePhoto = async () => {
+  const [child, setChild] = useState({
+    nom: '',
+    prenom: '',
+    school: '',
+    year: '',
+    lieu: '',
+    gradle: '',
+    photo: '',
+    imatriculation: 'cm237',
+    driver: 'Adams'
+  });
+  const handleChoosePhoto = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       quality: 1,
     });
 
     if (!result.canceled) {
+      setChild({
+        ...child,
+        photo: result.uri
+      })
       console.log(result);
     } else {
       alert('You did not select any image.');
     }
   };
 
+  const handleChange = (key, value) => {
+    setChild({
+      ...child,
+      [key]: value
+    })
+  }
+
+
   const handleFormSubmit = () => {
-    console.log('Nom(s) et Prénom(s):', fullName);
-    console.log('Niveau scolaire:', level);
-    console.log('Date de Naissance:', dateOfBirth);
-    console.log('Lieu D’habitation:', residence);
-    console.log('Référence proche de la maison:', pickupReference);
-    console.log('Photo de profil de l’enfant:', profilePhoto);
-    
-     setGlobalState(prevState=>({
-      ...prevState, 
-      isDrawerScreen: false,
-      initialScreen: {
-        route: "Configurer l'itinéraire", 
-      }
-    }))
+
+    dispatch(setSidbard(false))
+    dispatch(addChild(child))
+    setInitialScreen("Mes Enfants")
+    // setGlobalState(prevState => ({
+    //   ...prevState,
+    //   isDrawerScreen: false,
+    //   initialScreen: {
+    //     route: "Configurer l'itinéraire",
+    //   }
+    // }))
 
 
 
   };
 
   return (
-    <View style={styles.container}>
-     <Picker
-        label="École de l'enfant"
-        value={school}
-        onValueChange={(itemValue) => setSchool(itemValue)}
-        style={styles.input}
-      >
-        {schools.map((school, index) => (
-          <Picker.Item key={index} label={school.label} value={school.value} />
-        ))}
-      </Picker>
+    <ScrollView style={styles.container}>
+      <View style={styles.selected}>
+        <Picker
+          label="École de l'enfant"
+          value={school}
+          onValueChange={(itemValue) => handleChange('school', itemValue)}
+          style={styles.selected}
+        >
+          {schools.map((school, index) => (
+            <Picker.Item key={index} label={school.label} value={school.value} />
+          ))}
+        </Picker>
+      </View>
       <TextInput
-        label="Nom(s) et Prénom(s)"
-        value={fullName}
-        onChangeText={text => setFullName(text)}
+        label="Nom(s)"
+        onChangeText={text => handleChange('nom', text)}
+        style={styles.input}
+      />
+      <TextInput
+        label="Prenom(s)"
+        onChangeText={text => handleChange('prenom', text)}
         style={styles.input}
       />
       <TextInput
         label="Niveau scolaire"
-        value={level}
-        onChangeText={text => setLevel(text)}
+        onChangeText={text => handleChange('gradle', text)}
         style={styles.input}
       />
       <TextInput
-        label="Date de Naissance (YYYY-MM-DD)"
-        value={dateOfBirth}
-        onChangeText={text => setDateOfBirth(text)}
+        label="âge"
+        onChangeText={text => handleChange('year', text)}
         style={styles.input}
       />
       <TextInput
         label="Lieu D’habitation"
-        value={residence}
-        onChangeText={text => setResidence(text)}
+        onChangeText={text => handleChange('lieu', text)}
         style={styles.input}
       />
-      <TextInput
-        label="Référence proche de la maison"
-        value={pickupReference}
-        onChangeText={text => setPickupReference(text)}
-        style={styles.input}
-      />
-     <Button mode="contained" onPress={handleChoosePhoto} style={[styles.button, styles.input]}>
-       <Text style={{color: 'white'}}>
-         Ajouter  une photo
-       </Text>
-    </Button>
-      <Button mode="contained" onPress={handleFormSubmit} style={styles.button} >
-         <Text style={{color: 'white'}}>
-         Suivant
-         </Text> 
+      <Button mode="contained" onPress={handleChoosePhoto} style={[styles.button, styles.input]}>
+        <Text style={{ color: 'white' }}>
+          Ajouter  une photo
+        </Text>
       </Button>
-    </View>
+      {
+        (child.school && child.gradle && child.lieu && child.nom) &&
+        <Button mode="contained" onPress={handleFormSubmit} style={styles.button} >
+          <Text style={{ color: 'white' }}>
+            Suivant
+          </Text>
+        </Button>
+      }
+
+    </ScrollView>
   );
 };
 
@@ -121,11 +140,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
+    marginTop:100
+  },
+  selected: {
+    marginVertical: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 2,
+    // backgroundColor:'gray'
   },
   input: {
     marginVertical: 10,
   },
-   button: {
+  button: {
     marginVertical: 10,
     backgroundColor: colors.primary,
     color: 'white'

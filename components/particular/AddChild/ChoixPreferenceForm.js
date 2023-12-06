@@ -2,14 +2,21 @@ import React, { useState } from 'react';
 import { CheckBox, Icon } from '@rneui/themed';
 import { View, StyleSheet , Text} from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
+import { useDispatch } from 'react-redux';
 
 import {colors} from '../../../assets/styles/colors'
+import { setSidbard } from '../../../redurcer/sideBarsSlice';
 
-const ChoixPreferenceForm  = () => {
+const ChoixPreferenceForm  = ({navigation}) => {
 const [check1, setCheck1] = useState(false);
 const [check2, setCheck2] = useState(false);
 const [check3, setCheck3] = useState(false);
 const [check4, setCheck4] = useState(false);
+const dispatch = useDispatch()
+
+const handleSave = () => {
+  dispatch(setSidbard(true))
+};
 
 return (
   <View style={styles.container}>
@@ -39,7 +46,7 @@ return (
       checked={check3}
       onPress={() => setCheck3(!check3)}
     />
-       <Button mode="contained" style={styles.button}>
+       <Button mode="contained" style={styles.button} onPress={handleSave}>
          <Text style={{color: 'white'}}>Enrégister</Text> 
       </Button>
   </View>
