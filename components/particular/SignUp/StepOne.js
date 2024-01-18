@@ -63,7 +63,7 @@ const StepOne = ({ navigation }) => {
       })
       return false
     }
-    if (user.nom.length < 8) {
+    if (user.password.length < 8) {
       setError({
         ...error, password: 'le mot de passe doit contenire au moins 8 charactère'
       })

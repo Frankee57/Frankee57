@@ -20,7 +20,7 @@ const Profile = (props) => {
   }, [])
   return (
     <View style={{ flex:1 }}>
-      <Navbar title={"Mon profile"} navigation={props.navigation} />
+      {/* <Navbar title={"Mon profile"} navigation={props.navigation} /> */}
       <ScrollView style={profileStyle.container}>
         <View style={profileStyle.avatarContainer}>
           {/* Icône pour changer le thème */}

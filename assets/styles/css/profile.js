@@ -5,7 +5,7 @@ const profileStyle = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: '#fff',
-    marginTop:100
+    marginTop:5
   },
   avatarContainer: {
     justifyContent: 'space-between',

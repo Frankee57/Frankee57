@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Button, View, Text, TouchableOpacity } from 'react-native';
 import { UseSelector, useSelector } from 'react-redux';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -24,36 +25,85 @@ import CustomHeader from '../components/general/CustomHeader'
 import DriverScreen from '../screens/DriverScreen'
 import R2SScreen from '../screens/R2SScreen'
 import ChildScreen from '../screens/EnfantsScreen';
+import { colors } from '../assets/styles/colors';
+import Home from '../screens/Home';
+import Menu from '../screens/Menu';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator()
 
 const DrawerScreen = () => {
-  const components = [<AddChildScreen />, <NotificationsScreen />, <UrgenceScreen />]
+  const component = [
+    <Home />,
+    <R2SScreen />,
+    <NotificationsScreen />,
+    <Menu />,
+  ]
+
+  // const components = [<AddChildScreen />, <NotificationsScreen />, <UrgenceScreen />]
   return (
     <NavigationContainer>
-      <Drawer.Navigator
-      screenOptions={{headerShown:false}}
+      <Tab.Navigator
         useLegacyImplementation
-        initialRouteName="Mes Enfants"
+        initialRouteName={items[0].route}
+
         drawerContent={props => <DrawerMenu {...props} />}
       >
-        <Drawer.Screen name="Mes Enfants" component={ChildScreen} />
-        <Drawer.Screen name="Enrégistrer votre enfant" component={AddChildScreen} />
-        <Drawer.Screen name="Notifications" component={NotificationsScreen} />
-        <Drawer.Screen name="Signaler une urgence" component={UrgenceScreen} />
-        <Drawer.Screen name="Mon profile" component={ProfileScreen} />
-        <Drawer.Screen name="Mes historiques" component={HistoMenu} />
-        <Drawer.Screen name="Gas" component={ContratScreen} />
-        <Drawer.Screen name="Historique des transactions" component={HistoTrans} />
-        <Drawer.Screen name="Historique des déplacements" component={HistoRide} />
-        <Drawer.Screen name="Mes conducteurs" component={DriverScreen} />
-        <Drawer.Screen name="R2S" component={R2SScreen} />
+        {
+          items.map((item, index) => {
+            return (
+              <Tab.Screen
+                name={item.route}
+                options={{
+                  tabBarLabel: item.name,
+                  tabBarIcon: ({ color }) => (
+                    <Ionicons name={item.icons} size={26} color={color} />
+                  ),
+                  headerTitleStyle: {
+                    color: 'white',
+                    textAlign: 'center',
+                    flex: 0
+                  },
+                  headerStyle: {
+                    backgroundColor: colors.primary
+                  }
+                }}
+              >
+                {props => item.render}
+              </Tab.Screen>
+            )
+          })
+        }
+      </Tab.Navigator>
+    </NavigationContainer>
+  )
+}
+
+const OhterDrow = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{ headerShown: false }}
+        useLegacyImplementation
+        // initialRouteName="Mes Enfants"
+        drawerContent={props => <DrawerMenu {...props} />}
+      >
+        <Stack.Screen name="Mes Enfants" component={ChildScreen} />
+        <Stack.Screen name="Enrégistrer votre enfant" component={AddChildScreen} />
+        <Stack.Screen name="Notifications" component={NotificationsScreen} />
+        <Stack.Screen name="Signaler une urgence" component={UrgenceScreen} />
+        <Stack.Screen name="Mon profile" component={ProfileScreen} />
+        <Stack.Screen name="Mes historiques" component={HistoMenu} />
+        <Stack.Screen name="Gas" component={ContratScreen} />
+        <Stack.Screen name="Historique des transactions" component={HistoTrans} />
+        <Stack.Screen name="Historique des déplacements" component={HistoRide} />
+        <Stack.Screen name="Mes conducteurs" component={DriverScreen} />
+        <Stack.Screen name="R2S" component={R2SScreen} />
 
 
         {/* Ajoutez d'autres écrans au Drawer ici */}
-      </Drawer.Navigator>
-
+      </Stack.Navigator>
     </NavigationContainer>
   )
 }
@@ -94,7 +144,10 @@ export default function User() {
     <View style={{ flex: 1 }}>
       {
         sidebard.isDrawerScreen ?
-          <DrawerScreen />
+          <>
+            <DrawerScreen />
+            {/* <OhterDrow/> */}
+          </>
           : <StackScreen />
       }
 

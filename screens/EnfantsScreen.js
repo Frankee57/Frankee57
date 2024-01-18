@@ -21,7 +21,7 @@ const ChildScreen = (props) => {
 
   return (
     <View style={styles.container}>
-      <Navbar title={'Mes Enfants'} navigation={props.navigation}/>
+      {/* <Navbar title={'Mes Enfants'} navigation={props.navigation}/> */}
       <View style={styles.containerView}>
         {
           myChildS.length > 0 ?
