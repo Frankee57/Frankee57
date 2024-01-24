@@ -90,7 +90,7 @@ export const items = [
   {
     icons:'home',
     name:'Accueil',
-    route: 'Home',
+    route: 'Ride 2 School',
     render: <Home/>,
     headerShow: false
 },
@@ -124,9 +124,9 @@ const DrawerMenu = ({ navigation }) => {
         {/* <Text style={styles.logo}>BetaCARD</Text> */}
 
         {
-          items.map((item) => {
+          items.map((item, index) => {
             return (
-              <View >
+              <View key={index}>
                 <TouchableOpacity onPress={() => navigation.navigate(item.route)} style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20, marginLeft: 20 }}>
                   <Ionicons name={item.icons} size={24} color="black" />
                   <Text style={{ marginLeft: 10, color:'white' }} >{item.route}</Text>

@@ -54,6 +54,7 @@ const DrawerScreen = () => {
           items.map((item, index) => {
             return (
               <Tab.Screen
+                key={index}
                 name={item.route}
                 options={{
                   tabBarLabel: item.name,
