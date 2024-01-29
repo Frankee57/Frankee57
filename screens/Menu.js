@@ -50,13 +50,13 @@ const Services = [
     {
         name: 'mes enfants',
         icon: 'person-outline',
-        route: 'mychildren',
+        route: 'myChildren',
         color: colors.primary
     },
     {
         name: 'Enregistrer un enfant',
         icon: 'person-add',
-        route: 'saveChild',
+        route: 'savedChild',
         color: colors.primary,
     },
     {
@@ -68,26 +68,26 @@ const Services = [
     {
         name: 'Historique',
         icon: 'time',
-        route: 'historique',
+        route: 'historiques',
         color: 'green',
     },
     {
         name: 'Conducteurs',
         icon: 'car',
-        route: 'conducteur',
+        route: 'conducteurs',
         color: 'pink'
     },
     {
         name: 'Signaler un probleme',
         icon: 'warning',
-        route: 'warning',
+        route: 'urgence',
         color: 'red'
     },
 ]
 
 const Menu = ({navigation}) => {
     // const navigation = useNavigation()
-    console.log(navigation);
+    // console.log(navigation);
     const currentUser = useSelector(state => state.currentUser.user)
     const MyChildrens = ({ name, image }) => {
         return (
@@ -103,8 +103,11 @@ const Menu = ({navigation}) => {
     }
 
     const MyService = ({ name, route, icon, color }) => {
+        const handlePress = (value) =>{
+            console.log(value);
+        }
         return (
-            <TouchableOpacity style={profileStyle.services} >
+            <TouchableOpacity style={profileStyle.services} onPress={ ()=>navigation.navigate(route)} >
                 <View>
                     <Ionicons name={icon} size={24} color={color} style={{ marginLeft: 20 }} />
                 </View>
@@ -161,6 +164,9 @@ const Menu = ({navigation}) => {
                         })
                     }
                 </View>
+                <TouchableOpacity style={ profileStyle.decconected}>
+                    <Text style={{ color:colors.primary, fontWeight:'bold' }} >Deconnecter</Text>
+                </TouchableOpacity>
             </ScrollView>
         </View>
     )
@@ -269,4 +275,22 @@ const profileStyle = StyleSheet.create({
         textAlign: 'center',
 
     },
+    decconected:{
+        marginBottom:50,
+        // flexDirection: 'row',
+        marginLeft: 10,
+        height: 50,
+        shadowOffset: {
+            width: 1,
+            height: 5,
+        },
+        borderRadius: 10,
+        shadowOpacity: 0.6,
+        shadowColor: colors.primary,
+        shadowRadius: 4,
+        elevation: 10,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent:'center'
+    }
 });

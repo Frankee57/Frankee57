@@ -16,6 +16,8 @@ import HistoMenu from '../../screens/Historique';
 import ContratScreen from '../../screens/ContratScreen';
 import HistoTransItem from './HistoTransItem';
 import DriverScreen from '../../screens/DriverScreen';
+import EnfantForm from '../../screens/AddChildScreen';
+import ChildScreen from '../../screens/EnfantsScreen';
 
 
 // export const items = [
@@ -69,15 +71,16 @@ const OhterDrow = () => {
         drawerContent={props => <DrawerMenu {...props} />}
       >
         <Stack.Screen name="Menu" component={Menu} />
-        {/* <Stack.Screen name="Enrégistrer votre enfant" component={AddChildScreen} /> */}
+        <Stack.Screen name="savedChild" component={EnfantForm} />
+        <Stack.Screen name = "myChildren" component={ChildScreen}/>
         <Stack.Screen name="Notifications" component={NotificationsScreen} />
-        <Stack.Screen name="Signaler une urgence" component={UrgenceScreen} />
-        <Stack.Screen name="Mon profile" component={Profile} />
-        <Stack.Screen name="Mes historiques" component={HistoMenu} />
+        <Stack.Screen name="urgence" component={UrgenceScreen} />
+        <Stack.Screen name="profile" component={Profile} />
+        <Stack.Screen name="historiques" component={HistoMenu} />
         <Stack.Screen name="Gas" component={ContratScreen} />
-        <Stack.Screen name="Historique des transactions" component={HistoTransItem} />
+        <Stack.Screen name="transactions" component={HistoTransItem} />
         {/* <Stack.Screen name="Historique des déplacements" component={HistoRide} /> */}
-        <Stack.Screen name="Mes conducteurs" component={DriverScreen} />
+        <Stack.Screen name="conducteurs" component={DriverScreen} />
         <Stack.Screen name="R2S" component={R2SScreen} />
 
 

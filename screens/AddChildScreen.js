@@ -16,7 +16,7 @@ const EnfantForm = (props) => {
  
   return (
     <View style={styles.container}>
-      <Navbar title={'Enrgistrer un enfant'} navigation = {props.navigation}  />
+      {/* <Navbar title={'Enrgistrer un enfant'} navigation = {props.navigation}  /> */}
         <MySlide content={<ChildForm />} />
     </View>
   );

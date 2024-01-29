@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    marginTop:100
+    marginTop:20
   },
   selected: {
     marginVertical: 10,
@@ -155,7 +155,8 @@ const styles = StyleSheet.create({
   button: {
     marginVertical: 10,
     backgroundColor: colors.primary,
-    color: 'white'
+    color: 'white',
+    marginBottom:50
   },
 });
 

@@ -23,6 +23,7 @@ import User from './navigation/User'
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
 import {colors} from './assets/styles/colors'
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 // const Stack = createNativeStackNavigator();
 // const Drawer = createDrawerNavigator();
@@ -55,9 +56,11 @@ export default function App() {
 
   return (
  <PaperProvider theme={theme}>
+ <GestureHandlerRootView style={{ flex: 1 }}>
    <Provider store={store}>
        <Navigation />
    </Provider>
+   </GestureHandlerRootView>
   </PaperProvider>
 
   );
