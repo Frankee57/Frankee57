@@ -3,9 +3,10 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 import { Avatar } from 'react-native-paper'
 import { colors } from '../assets/styles/colors'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Ionicons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
+import { logout } from '../redurcer/userSlice'
 
 const Enfants = [
     {
@@ -85,9 +86,10 @@ const Services = [
     },
 ]
 
-const Menu = ({navigation}) => {
+const Menu = ({ navigation }) => {
     // const navigation = useNavigation()
     // console.log(navigation);
+    const dispatch = useDispatch()
     const currentUser = useSelector(state => state.currentUser.user)
     const MyChildrens = ({ name, image }) => {
         return (
@@ -102,17 +104,21 @@ const Menu = ({navigation}) => {
         )
     }
 
+    const singout = () => {
+        dispatch(logout())
+    }
+
     const MyService = ({ name, route, icon, color }) => {
-        const handlePress = (value) =>{
+        const handlePress = (value) => {
             console.log(value);
         }
         return (
-            <TouchableOpacity style={profileStyle.services} onPress={ ()=>navigation.navigate(route)} >
+            <TouchableOpacity style={profileStyle.services} onPress={() => navigation.navigate(route)} >
                 <View>
                     <Ionicons name={icon} size={24} color={color} style={{ marginLeft: 20 }} />
                 </View>
                 <View>
-                    <Text style={{ marginTop: 10, marginLeft:20 }}>{name}</Text>
+                    <Text style={{ marginTop: 10, marginLeft: 20 }}>{name}</Text>
                 </View>
             </TouchableOpacity>
         )
@@ -155,7 +161,7 @@ const Menu = ({navigation}) => {
                 <View style={profileStyle.textEnfants}>
                     <Text style={profileStyle.textItem}>Vos Services </Text>
                 </View>
-                <View style={{ flexWrap: 'wrap', flexDirection: 'row', marginBottom: 50, justifyContent:'space-between' }} >
+                <View style={{ flexWrap: 'wrap', flexDirection: 'row', marginBottom: 50, justifyContent: 'space-between' }} >
                     {
                         Services.map((item, index) => {
                             return (
@@ -164,8 +170,8 @@ const Menu = ({navigation}) => {
                         })
                     }
                 </View>
-                <TouchableOpacity style={ profileStyle.decconected}>
-                    <Text style={{ color:colors.primary, fontWeight:'bold' }} >Deconnecter</Text>
+                <TouchableOpacity style={profileStyle.decconected} onPress={singout}>
+                    <Text style={{ color: colors.primary, fontWeight: 'bold' }} >Deconnecter</Text>
                 </TouchableOpacity>
             </ScrollView>
         </View>
@@ -275,8 +281,8 @@ const profileStyle = StyleSheet.create({
         textAlign: 'center',
 
     },
-    decconected:{
-        marginBottom:50,
+    decconected: {
+        marginBottom: 50,
         // flexDirection: 'row',
         marginLeft: 10,
         height: 50,
@@ -291,6 +297,6 @@ const profileStyle = StyleSheet.create({
         elevation: 10,
         backgroundColor: 'white',
         alignItems: 'center',
-        justifyContent:'center'
+        justifyContent: 'center'
     }
 });

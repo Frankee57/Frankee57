@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { UseSelector, useSelector } from 'react-redux';
 import Navbar from '../components/Navbar';
 
-const Profile = (props) => {
+const Profile = ({navigation}) => {
   // const navigation = useNavigation()
   const currentUser = useSelector(state => state.currentUser.user)
   // console.log(currentUser);
@@ -18,6 +18,9 @@ const Profile = (props) => {
   useEffect(() => {
 
   }, [])
+  const changePage = (value) =>{
+    navigation.navigate(value)
+  }
   return (
     <View style={{ flex:1 }}>
       {/* <Navbar title={"Mon profile"} navigation={props.navigation} /> */}
@@ -25,7 +28,7 @@ const Profile = (props) => {
         <View style={profileStyle.avatarContainer}>
           {/* Icône pour changer le thème */}
           <Avatar.Image
-            source={require('../assets/images/Alain-Mabankou.jpg')}
+            source={require('../assets/images/addPerson.png')}
             size={100}
           />
         </View>
@@ -38,9 +41,9 @@ const Profile = (props) => {
         {/* Numéro de téléphone et bouton "Modifier" */}
         <View style={profileStyle.contactContainer}>
           <Text style={profileStyle.phoneNumber}>{currentUser.telephone}</Text>
-          <Button mode="contained" style={profileStyle.editButton}>
+          <TouchableOpacity style={profileStyle.editButton} onPress={()=> changePage('updateProfile')}>
             <Text style={{ color: 'white' }}>Modifier</Text>
-          </Button>
+          </TouchableOpacity>
         </View>
 
         {/* Liste des options */}

@@ -18,6 +18,10 @@ import HistoTransItem from './HistoTransItem';
 import DriverScreen from '../../screens/DriverScreen';
 import EnfantForm from '../../screens/AddChildScreen';
 import ChildScreen from '../../screens/EnfantsScreen';
+import IteConfig from './AddChild/IteConfig';
+import GerantDeCasForm from './AddChild/GerantDeCasForm';
+import ChoixPreferenceForm from './AddChild/ChoixPreferenceForm';
+import UpdateProfile from '../../screens/UpdateProfile';
 
 
 // export const items = [
@@ -82,6 +86,12 @@ const OhterDrow = () => {
         {/* <Stack.Screen name="Historique des déplacements" component={HistoRide} /> */}
         <Stack.Screen name="conducteurs" component={DriverScreen} />
         <Stack.Screen name="R2S" component={R2SScreen} />
+        <Stack.Screen name="Configurer l'itinéraire" component={IteConfig} screenOptions={{
+          header: (props) => <CustomHeader title={"Configurer l'itinéraire"} />, headerShown: false
+        }} />
+        <Stack.Screen name="Enrégister le gérant de cas" component={GerantDeCasForm} />
+        <Stack.Screen name="Choisir vos préférences" component={ChoixPreferenceForm} />
+        <Stack.Screen name="updateProfile" component={UpdateProfile} />
 
 
         {/* Ajoutez d'autres écrans au Drawer ici */}
@@ -113,8 +123,8 @@ export const items = [
 },
 {
     icons:'person',
-    name:'menu',
-    route: 'Menu',
+    name:'Mon Profile',
+    route: 'Mon Profile',
     render:<OhterDrow/>,
     headerShow: false
 },

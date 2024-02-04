@@ -11,7 +11,7 @@ import Navbar from '../components/Navbar';
 
 
 const components = [<ChildForm />, <IteConfig />, <GerantDeCasForm />, < ChoixPreferenceForm />];
-const EnfantForm = (props) => {
+const EnfantForm = () => {
   // const {globalState , setGlobalState}= useContext(MyContext)
  
   return (

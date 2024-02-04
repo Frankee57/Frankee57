@@ -53,7 +53,7 @@ const Visitor = () => {
            },
            headerTitleStyle: {}
            }} />
-        <Stack.Screen name="Créer un compte/Etape2" component={SignUpScreen2} options={{ headerShown: false }} />
+        {/* <Stack.Screen name="Créer un compte/Etape2" component={SignUpScreen2} options={{ headerShown: false }} /> */}
         <Stack.Screen name="Se connecter" component={SignInScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Details" component={DetailsScreen} />
       </Stack.Navigator>

@@ -28,8 +28,8 @@ const ChildScreen = (props) => {
             <FlatList
               keyExtractor={(item) => item.name}
               data={myChildS}
-              renderItem={({ item }) => {
-                return<View style={styles.itemView}>
+              renderItem={({ item, index }) => {
+                return<View style={styles.itemView} key={index}>
                   <Image style={styles.image} source={require('../assets/images/enfant1.jpg')} />
                   <View style={styles.allName}>
                     <Text ><Text style={styles.name}>Nom:</Text>{item.nom}</Text>
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   containerView: {
-    marginTop:100,
+    // marginTop:100,
     width: '100%',
   },
   itemView: {

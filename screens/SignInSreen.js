@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { colors } from '../assets/styles/colors'
 import FAIcon from 'react-native-vector-icons/FontAwesome'
@@ -7,29 +7,47 @@ import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native'
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, } from 'react';
-import { isConected } from '../redurcer/userSlice';
+import axios from 'axios';
+import { isConected, login } from '../redurcer/userSlice';
+import { singIn } from '../utils/api';
 
 const SignInScreen = ({ navigation }) => {
   const currentUser = useSelector((state) => state.currentUser)
   const dispatch = useDispatch()
-  const [phone, setPhone] = useState('');
-  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false)
+  const [user, setUser] = useState({})
+  // const [phone, setPhone] = useState('');
+  // const [password, setPassword] = useState('');
   const [error, setError] = useState('')
-
+  const handleChange = (key, value) => {
+    setUser({
+      ...user, [key]: value
+    })
+  }
   const validation = () => {
     if (phone !== currentUser.user.telephone || password !== currentUser.user.password) {
-      setError('numéro de téléphone ou mot de passe incorrecte')
+      setError('email ou mot de passe incorrecte')
       return false
     }
     return true
   }
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
+    setIsLoading(true)
     // Implémentez ici la logique de connexion en utilisant les valeurs de l'état
-    const validate = validation()
-    if (validate) {
-      dispatch(isConected())
-    }
+ 
+      try {
+        const {data} = await axios.post(singIn, user)
+        console.log(data);
+        dispatch(login(data))
+        dispatch(isConected())
+        setIsLoading(false)
+      } catch (err) {
+        setError('email ou mot de passe incorrecte')
+        console.log(err);
+        setIsLoading(false)
+      }
+      
   };
 
   return (
@@ -41,27 +59,28 @@ const SignInScreen = ({ navigation }) => {
             color={"white"}
             name={'angle-left'} />
         </TouchableOpacity>
-        <Text style={styles.navBarTest}>Créer un compte</Text>
+        <Text style={styles.navBarTest}>Se Connecter</Text>
       </View>
       <View style={styles.container}>
         <Text style={styles.textError} >{error}</Text>
         <TextInput
-          label="Numéro de téléphone"
-          value={phone}
-          onChangeText={(text) => setPhone(text)}
+          label="email"
+          onChangeText={(text) => handleChange('email', text)}
           style={styles.input}
         />
         <TextInput
           label="Mot de passe"
-          value={password}
           secureTextEntry
-          onChangeText={(text) => setPassword(text)}
+          onChangeText={(text) => handleChange('password', text)}
           style={styles.input}
         />
         <TouchableOpacity mode="contained" onPress={handleLogin} style={styles.button}>
-          <Text style={{ color: 'white' }}>
-            Se connecter
-          </Text>
+          {isLoading ? <ActivityIndicator size="large" color="white" /> :
+            <Text style={{ color: 'white' }}>
+              Se connecter
+            </Text>
+          }
+
         </TouchableOpacity>
       </View>
     </View>

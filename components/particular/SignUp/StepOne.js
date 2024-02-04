@@ -1,77 +1,55 @@
-import React, { useState, useContext } from 'react';
-import { View, StyleSheet, ScrollView, Text } from 'react-native';
-import { TextInput, Button } from 'react-native-paper';
+import React, { useState } from 'react';
+import { View, StyleSheet, ScrollView, Text, ActivityIndicator } from 'react-native';
+import { TextInput } from 'react-native-paper';
 import { colors } from '../../../assets/styles/colors';
 import FAIcon from 'react-native-vector-icons/FontAwesome'
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useDispatch } from "react-redux";
+import axios from "axios";
 
-import MyContext from '../../../contextes/appContext';
-import { useNavigation } from '@react-navigation/native'
+// import MyContext from '../../../contextes/appContext';
+// import { useNavigation } from '@react-navigation/native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { login } from '../../../redurcer/userSlice';
+import { register } from '../../../utils/api';
 
 const StepOne = ({ navigation }) => {
   const dispatch = useDispatch()
+  const [isLoading, setIsLoading] = useState(false)
   const [user, setUser] = useState({
-    prenom: '',
-    nom: '',
-    adresseMail: '',
-    cni: '',
-    telephone: '',
+    email: '',
     password: '',
-    confirmPassword: '',
+    password_confirmation: '',
   });
   const [error, setError] = useState({
-    nom: '',
     adresseMail: '',
-    cni: '',
-    telephone: '',
     password: '',
-    confirmPassword: '',
+    password_confirmation: '',
   })
   const validate = () => {
     setError({
-      nom: '',
       adresseMail: '',
-      cni: '',
-      telephone: '',
       password: '',
-      confirmPassword: '',
+      password_confirmation: '',
     })
-    if (user.nom.length === 0) {
-      setError({
-        ...error, nom: 'le nom est obligatoire'
-      })
-      return false
-    }
-    if (!user.adresseMail.includes('@')) {
+    if (!user.email.includes('@')) {
+      console.log('email');
       setError({
         ...error, adresseMail: 'adress mail incorrect'
       })
       return false
     }
-    if (user.cni.length === 0) {
-      setError({
-        ...error, cni: 'ce champ est obligatoire '
-      })
-      return false
-    }
-    if (user.telephone.length !== 9) {
-      setError({
-        ...error, telephone: 'le numéro de téléphon dois contenire 9 chiffre '
-      })
-      return false
-    }
-    if (user.password.length < 8) {
+    if (user.password.length < 9) {
+      console.log('password');
       setError({
         ...error, password: 'le mot de passe doit contenire au moins 8 charactère'
       })
       return false
     }
-    else if (user.password !== user.confirmPassword) {
+    else if (user.password !== user.password_confirmation) {
+      console.log('cpassword');
       setError({
-        ...error, confirmPassword: 'les mots de passes ne correspondent pas'
+        ...error, password_confirmation: 'les mots de passes ne correspondent pas'
       })
       return false
     }
@@ -82,15 +60,37 @@ const StepOne = ({ navigation }) => {
       ...user, [key]: value
     })
   }
-  const handleNext = () => {
+  const handleSubmit = async () => {
+    console.log('submit');
+    setIsLoading(true)
     const isValidate = validate()
+    console.log('validat', isValidate);
     if (!isValidate) {
-      console.log('ici')
+      console.log('validate')
+      setError({
+        adresseMail: '',
+        password: '',
+        password_confirmation: '',
+      })
+      setIsLoading(false)
       return
     }
-    console.log(user)
-    dispatch(login(user))
-    navigation.navigate("Se connecter")
+    // console.log(user)
+    try {
+      const { data } = await axios.post(register, user)
+      console.log(data);
+      setIsLoading(false)
+      // dispatch(login(data))
+      navigation.navigate("Se connecter")
+    } catch (err) {
+      setError({
+        ...error, adresseMail: 'email déjà utilisé'
+      })
+      console.log(err);
+      setIsLoading(false)
+    }
+    setIsLoading(false)
+
 
   }
   return (
@@ -106,30 +106,30 @@ const StepOne = ({ navigation }) => {
       </View>
       <ScrollView>
         <View style={styles.container}>
-          <TextInput
+          {/* <TextInput
             label="Prénom"
             onChangeText={text => handleChange('prenom', text)}
             style={styles.input}
-          />
-          <TextInput
+          /> */}
+          {/* <TextInput
             label="Nom *"
             onChangeText={text => handleChange('nom', text)}
             style={[styles.input, {
               borderWidth: error.nom.length !== 0 ? 1 : 0,
               borderColor: error.nom.length !== 0 ? 'red' : '',
             }]}
-          />
-          <Text style={styles.textError}>{error.nom}</Text>
+          /> */}
+          {/* <Text style={styles.textError}>{error.nom}</Text> */}
           <TextInput
             label="Adresse Mail *"
-            onChangeText={text => handleChange('adresseMail', text)}
+            onChangeText={text => handleChange('email', text)}
             style={[styles.input, {
               borderWidth: error.adresseMail.length !== 0 ? 1 : 0,
               borderColor: error.adresseMail.length !== 0 ? 'red' : '',
             }]}
           />
           <Text style={styles.textError}>{error.adresseMail}</Text>
-          <TextInput
+          {/* <TextInput
             label="Numéro de CNI *"
             onChangeText={text => handleChange('cni', text)}
             style={[styles.input, {
@@ -137,8 +137,8 @@ const StepOne = ({ navigation }) => {
               borderColor: error.cni.length !== 0 ? 'red' : '',
             }]}
           />
-          <Text style={styles.textError}>{error.cni}</Text>
-          <TextInput
+          <Text style={styles.textError}>{error.cni}</Text> */}
+          {/* <TextInput
             label="Numéro de téléphone *"
             keyboardType='numeric'
             onChangeText={text => handleChange('telephone', text)}
@@ -147,7 +147,7 @@ const StepOne = ({ navigation }) => {
               borderColor: error.telephone.length !== 0 ? 'red' : '',
             }]}
           />
-          <Text style={styles.textError}>{error.telephone}</Text>
+          <Text style={styles.textError}>{error.telephone}</Text> */}
           <TextInput
             label="Mot de passe *"
             secureTextEntry
@@ -161,17 +161,20 @@ const StepOne = ({ navigation }) => {
           <TextInput
             label="Entrer à nouveaut votre mot de passe *"
             secureTextEntry
-            onChangeText={text => handleChange('confirmPassword', text)}
+            onChangeText={text => handleChange('password_confirmation', text)}
             style={[styles.input, {
-              borderWidth: error.confirmPassword.length !== 0 ? 1 : 0,
-              borderColor: error.confirmPassword.length !== 0 ? 'red' : '',
+              borderWidth: error.password_confirmation.length !== 0 ? 1 : 0,
+              borderColor: error.password_confirmation.length !== 0 ? 'red' : '',
             }]}
           />
-          <Text style={styles.textError}>{error.confirmPassword}</Text>
-          <TouchableOpacity mode="contained" onPress={handleNext} style={styles.button}>
-            <Text style={{ color: 'white' }}>
-              Suivant
-            </Text>
+          <Text style={styles.textError}>{error.password_confirmation}</Text>
+          <TouchableOpacity mode="contained" onPress={handleSubmit} style={styles.button}>
+            {
+              isLoading ? <ActivityIndicator size="large" color="white" /> : <Text style={{ color: 'white' }}>
+                Suivant
+              </Text>
+            }
+
           </TouchableOpacity>
           <View style={styles.testConnect}>
             <Text>

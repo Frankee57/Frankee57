@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, StyleSheet, Text, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { colors } from '../../../assets/styles/colors'
 import MyContext from '../../../contextes/appContext'
@@ -61,12 +61,16 @@ const ChildForm = () => {
     })
   }
 
+  console.log('ici');
 
   const handleFormSubmit = () => {
 
-    dispatch(setSidbard(false))
+    console.log(child);
+
+    // dispatch(setSidbard(false))
     dispatch(addChild(child))
-    setInitialScreen("Mes Enfants")
+    navigation.navigate('myChildren')
+    // setInitialScreen("Mes Enfants")
     // setGlobalState(prevState => ({
     //   ...prevState,
     //   isDrawerScreen: false,
@@ -125,11 +129,11 @@ const ChildForm = () => {
       </Button>
       {
         (child.school && child.gradle && child.lieu && child.nom) &&
-        <Button mode="contained" onPress={handleFormSubmit} style={styles.button} >
-          <Text style={{ color: 'white' }}>
+        <TouchableOpacity  onPress={()=>handleFormSubmit()} style={[styles.button, {height:40, justifyContent:'center'}]} >
+          <Text style={{ color: 'white', textAlign:'center' }}>
             Suivant
           </Text>
-        </Button>
+        </TouchableOpacity>
       }
 
     </ScrollView>

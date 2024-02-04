@@ -38,6 +38,9 @@ const profileStyle = StyleSheet.create({
     flex: 1,
     backgroundColor :colors.primary,
     width: 200,
+    height:40,
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: 15
   },
    appBar: {

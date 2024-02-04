@@ -81,33 +81,33 @@ const DrawerScreen = () => {
   )
 }
 
-const OhterDrow = () => {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{ headerShown: false }}
-        useLegacyImplementation
-        // initialRouteName="Mes Enfants"
-        drawerContent={props => <DrawerMenu {...props} />}
-      >
-        <Stack.Screen name="Mes Enfants" component={ChildScreen} />
-        <Stack.Screen name="Enrégistrer votre enfant" component={AddChildScreen} />
-        <Stack.Screen name="Notifications" component={NotificationsScreen} />
-        <Stack.Screen name="Signaler une urgence" component={UrgenceScreen} />
-        <Stack.Screen name="Mon profile" component={ProfileScreen} />
-        <Stack.Screen name="Mes historiques" component={HistoMenu} />
-        <Stack.Screen name="Gas" component={ContratScreen} />
-        <Stack.Screen name="Historique des transactions" component={HistoTrans} />
-        <Stack.Screen name="Historique des déplacements" component={HistoRide} />
-        <Stack.Screen name="Mes conducteurs" component={DriverScreen} />
-        <Stack.Screen name="R2S" component={R2SScreen} />
+// const OhterDrow = () => {
+//   return (
+//     <NavigationContainer>
+//       <Stack.Navigator
+//         screenOptions={{ headerShown: false }}
+//         useLegacyImplementation
+//         // initialRouteName="Mes Enfants"
+//         drawerContent={props => <DrawerMenu {...props} />}
+//       >
+//         <Stack.Screen name="Mes Enfants" component={ChildScreen} />
+//         <Stack.Screen name="Enrégistrer votre enfant" component={AddChildScreen} />
+//         <Stack.Screen name="Notifications" component={NotificationsScreen} />
+//         <Stack.Screen name="Signaler une urgence" component={UrgenceScreen} />
+//         <Stack.Screen name="Mon profile" component={ProfileScreen} />
+//         <Stack.Screen name="Mes historiques" component={HistoMenu} />
+//         <Stack.Screen name="Gas" component={ContratScreen} />
+//         <Stack.Screen name="Historique des transactions" component={HistoTrans} />
+//         <Stack.Screen name="Historique des déplacements" component={HistoRide} />
+//         <Stack.Screen name="Mes conducteurs" component={DriverScreen} />
+//         <Stack.Screen name="R2S" component={R2SScreen} />
 
 
-        {/* Ajoutez d'autres écrans au Drawer ici */}
-      </Stack.Navigator>
-    </NavigationContainer>
-  )
-}
+//         {/* Ajoutez d'autres écrans au Drawer ici */}
+//       </Stack.Navigator>
+//     </NavigationContainer>
+//   )
+// }
 
 const getGestureDirection = (route, navigation) => {
   if (route?.params?.previousRoute) {
@@ -139,18 +139,14 @@ const StackScreen = () => {
   );
 };
 export default function User() {
-  const sidebard = useSelector(state => state.sideBard)
+  // const sidebard = useSelector(state => state.sideBard)
   // const {globalState, setGlobalState} = useContext(MyContext)
   return (
     <View style={{ flex: 1 }}>
-      {
-        sidebard.isDrawerScreen ?
-          <>
+     
             <DrawerScreen />
             {/* <OhterDrow/> */}
-          </>
-          : <StackScreen />
-      }
+      
 
     </View>
   );

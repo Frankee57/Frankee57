@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, StyleSheet, Image, Text } from 'react-native';
+import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-paper';
 import * as Location from "expo-location"
 
@@ -63,22 +63,19 @@ export default HomeScreen = ({ navigation }) => {
         </Text>
 
         <View style={styles.actionsButtons}>
-          <Button
-            mode="contained"
+          <TouchableOpacity
+            // mode="contained"
             onPress={() => navigation.navigate('Créer un compte/Etape1')}
             style={styles.signUpBtn}
-            labelStyle={styles.label}
           >
-            Inscription
-          </Button>
-          <Button
-            mode=""
+            <Text style={{ color:'white' }}>Inscription</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
             onPress={() => navigation.navigate('Se connecter')}
             style={styles.signInBtn}
-            labelStyle={{ color: '#3498db' }}
           >
-            Connexion
-          </Button>
+            <Text style={{ color: '#3498db'  }}>Connexion</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -106,15 +103,17 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 5,
     marginVertical: 4,
+    justifyContent:'center',
+    alignItems:'center',
+    height:40,
     backgroundColor: colors.primary
   },
   signInBtn: {
     marginVertical: 4,
+    justifyContent:'center',
+    alignItems:'center',
+    height:40,
 
   },
-  label: {
-    color: 'white', // Couleur du texte du bouton
-  },
-
 
 });
