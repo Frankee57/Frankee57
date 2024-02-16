@@ -11,7 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "plugins":[
+    "plugins": [
       [
         "expo-location",
         {
@@ -23,12 +23,23 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCNJXjPNJI96OQs2Qfin46-Ow7sSeXx8nA"
+        }
+      },
+      "bundleIdentifier": "com.adamsdev237.snack65ad28d901bd41c2905159b35e55fb3a"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#ffffff",
+        "config": {
+          "googleMaps": {
+            "apiKey": "AIzaSyCNJXjPNJI96OQs2Qfin46-Ow7sSeXx8nA"
+          }
+        }
       },
       "package": "com.adamsdev237.snack65ad28d901bd41c2905159b35e55fb3a"
     },
