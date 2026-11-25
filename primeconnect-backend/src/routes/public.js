@@ -1,8 +1,9 @@
 import { randomUUID } from 'node:crypto';
 import { Router } from 'express';
 import multer from 'multer';
-import { contactSchema, careerSchema, partnerApplicationSchema, projectSchema } from '../validation/schemas.js';
+import { contactSchema, careerSchema, partnerApplicationSchema, projectSchema, bookingSchema } from '../validation/schemas.js';
 import { saveUploadedFile } from '../files.js';
+import { computeFreeSlots } from '../availability.js';
 
 const ARRAY_FIELDS = new Set(['langues', 'missions', 'jours', 'activites']);
 const CV_MAX_BYTES = 1363148.8;
@@ -118,6 +119,40 @@ export function createPublicRouter(store) {
     const reference = newReference();
     await store.createSubmission({ type: 'projet', pays: parsed.data.pays, source: '/configurer-mon-projet/', reference, data: parsed.data });
     res.json({ ok: true, reference, email: { prospect: false }, bookingToken: reference });
+  });
+
+  router.get('/rendez-vous/creneaux/', async (req, res) => {
+    const template = await store.getAvailabilityTemplate();
+    if (!template.slots.length) {
+      return res.json({ available: false, reason: 'indisponible' });
+    }
+    const slots = computeFreeSlots(template, [], {});
+    const free = [];
+    for (const slot of slots) {
+      if (!(await store.isSlotTaken(slot))) free.push(slot);
+    }
+    res.json({ available: true, slots: free, durationMin: template.slotDurationMinutes });
+  });
+
+  router.post('/rendez-vous/reserver/', async (req, res) => {
+    const parsed = bookingSchema.safeParse(formToObject(req.body));
+    if (!parsed.success) {
+      return res.status(400).json({ ok: false, errors: fieldErrorsFrom(parsed.error) });
+    }
+    if (await store.isSlotTaken(parsed.data.start)) {
+      return res.status(409).json({ ok: false, code: 'conflit', message: "Ce créneau vient d'être réservé par quelqu'un d'autre." });
+    }
+    const appointment = await store.createAppointment({
+      nom: parsed.data.nom,
+      email: parsed.data.email,
+      societe: parsed.data.societe,
+      startAt: parsed.data.start,
+      fuseau: parsed.data.fuseau,
+      demande: parsed.data.demande,
+      report: parsed.data.report,
+      projectReference: parsed.data.demande || null,
+    });
+    res.json({ ok: true, kind: 'creation', meeting: { start: appointment.startAt }, emailSent: false });
   });
 
   return router;
