@@ -1,7 +1,9 @@
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
+import { requireAdminKey } from './middleware/adminAuth.js';
 import { publicFormLimiter } from './middleware/rateLimit.js';
+import { createAdminRouter } from './routes/admin.js';
 import { createPublicRouter } from './routes/public.js';
 
 export function createApp(store) {
@@ -13,6 +15,7 @@ export function createApp(store) {
 
   app.get('/health', (_req, res) => res.json({ ok: true }));
   app.use('/api', publicFormLimiter, createPublicRouter(store));
+  app.use('/admin', requireAdminKey, createAdminRouter(store));
 
   return app;
 }
